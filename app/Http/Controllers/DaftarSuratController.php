@@ -66,6 +66,13 @@ class DaftarSuratController extends Controller
         // Combine the queries using unionAll
         $combinedQuery = $suratMasukQuery->unionAll($suratKeluarQuery);
 
+        // Add Sorting 
+        if ($request->has('sort_by') && $request->has('sort_direction')) {
+            // Paginate the combined results
+            $combinedResults = DB::table(DB::raw("({$combinedQuery->toSql()}) as sub"))
+                ->mergeBindings($combinedQuery->orderBy($request->get('sort_by'), $request->get('sort_direction')))
+                ->paginate(10);
+        }
         // Paginate the combined results
         $combinedResults = DB::table(DB::raw("({$combinedQuery->toSql()}) as sub"))
             ->mergeBindings($combinedQuery)
@@ -80,6 +87,8 @@ class DaftarSuratController extends Controller
         return inertia('DaftarSurat', [
             'data_surat' => $combinedResources, // Pass data_surat parameter to the front end
             'search' => $search, // Pass search parameter to the front end
+            'sort_by' => $request->sort_by ?? "",
+            'sort_direction' => $request->sort_direction ?? "",
         ]);
     }
 }
