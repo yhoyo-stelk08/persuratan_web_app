@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DaftarSuratResource;
 use App\Models\SuratMasuk;
 use App\Models\SuratKeluar;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DaftarSuratController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Get search parameters
+        $search = $request->input('search');
+
+
         // Define the columns to be selected
         $columns = [
             'id',
@@ -37,6 +42,27 @@ class DaftarSuratController extends Controller
 
         $suratKeluarQuery = SuratKeluar::select($columns)->toBase();
 
+        // Apply search filters
+        if ($search) {
+            $suratMasukQuery->where(function ($query) use ($search) {
+                $query->whereRaw('LOWER(nomor_naskah) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(hal) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(tanggal_naskah) like ? ', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(asal_naskah) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(uraian_info_berkas) like ?', ["%{$search}%"]);
+                // Add more conditions if needed
+            });
+
+            $suratKeluarQuery->where(function ($query) use ($search) {
+                $query->whereRaw('LOWER(nomor_naskah) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(hal) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(tanggal_naskah) like ? ', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(asal_naskah) like ?', ["%{$search}%"])
+                    ->orWhereRaw('LOWER(uraian_info_berkas) like ?', ["%{$search}%"]);
+                // Add more conditions if needed
+            });
+        }
+
         // Combine the queries using unionAll
         $combinedQuery = $suratMasukQuery->unionAll($suratKeluarQuery);
 
@@ -52,7 +78,8 @@ class DaftarSuratController extends Controller
         \Log::info('Combined Surat', ['Data Surat' => $combinedResources]);
 
         return inertia('DaftarSurat', [
-            'data_surat' => $combinedResources
+            'data_surat' => $combinedResources, // Pass data_surat parameter to the front end
+            'search' => $search, // Pass search parameter to the front end
         ]);
     }
 }
