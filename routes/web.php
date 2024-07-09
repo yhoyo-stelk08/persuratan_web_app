@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DaftarSuratController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
@@ -26,8 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Route for SuratMasuk and SuratKeluar
-    Route::resource('surat_masuk', SuratMasukController::class);
-    Route::resource('surat_keluar', SuratKeluarController::class);
+    Route::resource('surat-masuk', SuratMasukController::class);
+    Route::resource('surat-keluar', SuratKeluarController::class);
+
+    Route::get('/daftar-surat', [DaftarSuratController::class, 'index'])->name('daftar-surat');
 });
 
 require __DIR__ . '/auth.php';
