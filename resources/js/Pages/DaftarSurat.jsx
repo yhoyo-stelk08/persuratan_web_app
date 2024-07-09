@@ -3,15 +3,24 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { RxCaretDown, RxCaretSort, RxCaretUp } from "react-icons/rx";
 import { useDebounce } from "use-debounce";
 
-export default function DaftarSurat({ auth, data_surat, search }) {
-    console.log(data_surat);
+export default function DaftarSurat({
+    auth,
+    data_surat,
+    search,
+    sort_by,
+    sort_direction,
+}) {
+    // console.log(data_surat);
     const [searchTerm, setSearchTerm] = useState(search || "");
     const isInitialRender = useRef(true);
     const [pageNumber, setPageNumber] = useState("");
     const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
     const previousSearchTerm = useRef(searchTerm);
+    const [sortBy, setSortBy] = useState(sort_by || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
+    const [sortDirection, setSortDirection] = useState(sort_direction || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
 
     const handleChange = (e) => {
         const { value: _searchTerm } = e.target;
@@ -20,6 +29,33 @@ export default function DaftarSurat({ auth, data_surat, search }) {
 
     const updatedPageNumber = (link) => {
         setPageNumber(link.url.split("=")[1]);
+    };
+
+    // function to handle sorting of column
+    const handleSort = (column) => {
+        // Normalize column names
+        if (column === "uraian_informasi_berkas") {
+            column = "uraian_info_berkas";
+        }
+
+        if (column === "perihal") {
+            column = "hal";
+        }
+
+        if (sortBy === column) {
+            // Cycle through the three states
+            if (sortDirection === "asc") {
+                setSortDirection("desc");
+            } else if (sortDirection === "desc") {
+                setSortBy("");
+                setSortDirection("");
+            } else {
+                setSortDirection("asc");
+            }
+        } else {
+            setSortBy(column);
+            setSortDirection("asc");
+        }
     };
 
     // building url based on the change of searchTerm
@@ -34,8 +70,20 @@ export default function DaftarSurat({ auth, data_surat, search }) {
                 previousSearchTerm.current = debouncedSearchTerm;
             }
         }
+        if (sortBy) {
+            url.searchParams.set("sort_by", sortBy);
+            if (sortDirection) {
+                url.searchParams.set("sort_direction", sortDirection);
+            }
+        }
         return url;
-    }, [debouncedSearchTerm, pageNumber, previousSearchTerm]);
+    }, [
+        debouncedSearchTerm,
+        pageNumber,
+        previousSearchTerm,
+        sortBy,
+        sortDirection,
+    ]);
 
     useEffect(() => {
         // prevent the infinite loop caused by visiting dataSuratURL
@@ -114,14 +162,42 @@ export default function DaftarSurat({ auth, data_surat, search }) {
                                                         "Asal Naskah",
                                                         "Uraian Informasi Berkas",
                                                     ].map((column) => {
+                                                        const columnKey = column
+                                                            .toLowerCase()
+                                                            .replace(/ /g, "_");
                                                         return (
                                                             <th
                                                                 key={column}
+                                                                onClick={() =>
+                                                                    handleSort(
+                                                                        columnKey
+                                                                    )
+                                                                }
                                                                 scope="col"
-                                                                className={`py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 cursor-pointer underline whitespace-nowrap`}
+                                                                className={`py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 cursor-pointer ${
+                                                                    sortBy ===
+                                                                    columnKey
+                                                                        ? "underline"
+                                                                        : ""
+                                                                }`}
                                                             >
                                                                 <div className="flex items-center">
                                                                     {column}
+                                                                    {sortBy ===
+                                                                        columnKey && (
+                                                                        <span className="ml-1">
+                                                                            {sortDirection ===
+                                                                            "asc" ? (
+                                                                                <RxCaretUp />
+                                                                            ) : sortDirection ===
+                                                                              "desc" ? (
+                                                                                <RxCaretDown />
+                                                                            ) : sortDirection ===
+                                                                              "" ? (
+                                                                                <RxCaretSort />
+                                                                            ) : null}
+                                                                        </span>
+                                                                    )}
                                                                 </div>
                                                             </th>
                                                         );
