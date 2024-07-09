@@ -12,7 +12,7 @@ class SuratKeluarController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('SuratKeluar/Index');
     }
 
     /**
