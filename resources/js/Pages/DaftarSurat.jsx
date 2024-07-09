@@ -1,7 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function DaftarSurat({ auth }) {
+export default function DaftarSurat({ auth, data_surat }) {
+    console.log(data_surat);
     return (
         <AuthenticatedLayout
             user={auth.user}
