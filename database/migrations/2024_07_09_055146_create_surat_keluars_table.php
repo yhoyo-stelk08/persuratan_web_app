@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('surat_keluars', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->default(DB::raw('gen_random_uuid()'));
             $table->date('tanggal_naskah');
             $table->string('nomor_naskah', 255);
             $table->text('hal');
