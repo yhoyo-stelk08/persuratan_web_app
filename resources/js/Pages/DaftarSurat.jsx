@@ -22,6 +22,14 @@ export default function DaftarSurat({
     const [sortBy, setSortBy] = useState(sort_by || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
     const [sortDirection, setSortDirection] = useState(sort_direction || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
 
+    const hapusSurat = (suratId) => {
+        if (confirm("Are you sure you want to delete this record?")) {
+            router.delete(route("daftar-surat.destroy", suratId), {
+                preserveScroll: true,
+            });
+        }
+    };
+
     const handleChange = (e) => {
         const { value: _searchTerm } = e.target;
         setSearchTerm(_searchTerm);
@@ -60,7 +68,7 @@ export default function DaftarSurat({
 
     // building url based on the change of searchTerm
     const dataSuratURL = useMemo(() => {
-        const url = new URL(route("daftar-surat"));
+        const url = new URL(route("daftar-surat.index"));
 
         if (pageNumber) url.searchParams.set("page", pageNumber);
         if (debouncedSearchTerm) {
@@ -247,11 +255,11 @@ export default function DaftarSurat({
                                                                     </Link>
                                                                     <button
                                                                         className="ml-2 text-indigo-600 hover:text-indigo-900"
-                                                                        // onClick={() =>
-                                                                        //     deleteRole(
-                                                                        //         role.id
-                                                                        //     )
-                                                                        // }
+                                                                        onClick={() =>
+                                                                            hapusSurat(
+                                                                                data.id
+                                                                            )
+                                                                        }
                                                                     >
                                                                         Delete
                                                                     </button>
