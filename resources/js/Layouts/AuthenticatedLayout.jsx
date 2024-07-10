@@ -29,6 +29,14 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Home
                                 </NavLink>
+                                <NavLink
+                                    href={route("surat-masuk.create")}
+                                    active={route().current(
+                                        "surat-masuk.create"
+                                    )}
+                                >
+                                    Form Input Surat Masuk
+                                </NavLink>
                                 <div
                                     className={
                                         "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none active:border-indigo-400 active:text-gray-900 focus:border-indigo-700 "
