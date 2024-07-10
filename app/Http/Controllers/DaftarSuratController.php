@@ -91,4 +91,37 @@ class DaftarSuratController extends Controller
             'sort_direction' => $request->sort_direction ?? "",
         ]);
     }
+
+    public function destroy($id)
+    {
+        try {
+            // search surat_masuk
+            $suratMasukSearchResult = SuratMasuk::find($id);
+            $suratKeluarSearchResult = SuratKeluar::find($id);
+
+            // message to be sent to front end
+            $message = "";
+
+            // if find delete it
+            if ($suratMasukSearchResult) {
+                \Log::info('Surat Masuk Search Result', ['search result', $suratMasukSearchResult]);
+                $suratMasukSearchResult->delete();
+                \Log::info('Surat Masuk Deleted Result', ['search result', $suratMasukSearchResult->uraian_info_berkas]);
+                $message = "Surat masuk sukses dihapus!";
+            } else if ($suratKeluarSearchResult) {
+                \Log::info('Surat Keluar Search Result', ['search result', $suratKeluarSearchResult]);
+                $suratKeluarSearchResult->delete();
+                \Log::info('Surat Keluar Deleted Result', ['search result', $suratKeluarSearchResult->uraian_info_berkas]);
+                $message = "Surat keluar sukses dihapus!";
+            }
+            return redirect()->route('daftar-surat.index')
+                ->with('message', ['type' => 'success', 'body' => $message]);
+            ;
+        } catch (\Exception $e) {
+            \Log::error("Error occured in DaftarSuratController destroy method", ['error' => $e->getMessage()]);
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'Gagal menghapus surat']);
+        }
+
+    }
 }
