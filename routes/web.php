@@ -30,7 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('surat-masuk', SuratMasukController::class);
     Route::resource('surat-keluar', SuratKeluarController::class);
 
-    Route::get('/daftar-surat', [DaftarSuratController::class, 'index'])->name('daftar-surat');
+    Route::get('/daftar-surat', [DaftarSuratController::class, 'index'])->name('daftar-surat.index');
+    Route::delete('/daftar-surat/{id}', [DaftarSuratController::class, 'destroy'])->name('daftar-surat.destroy');
 });
 
 require __DIR__ . '/auth.php';
