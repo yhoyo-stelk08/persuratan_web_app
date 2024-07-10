@@ -45,7 +45,7 @@ class DaftarSuratController extends Controller
         // Apply search filters
         if ($search) {
             $suratMasukQuery->where(function ($query) use ($search) {
-                $query->whereRaw('LOWER(nomor_naskah) like ?', ["%{$search}%"])
+                $query->whereRaw('nomor_naskah like ?', ["%{$search}%"])
                     ->orWhereRaw('LOWER(hal) like ?', ["%{$search}%"])
                     ->orWhere('tanggal_naskah', 'like', "%{$search}%")
                     ->orWhereRaw('LOWER(asal_naskah) like ?', ["%{$search}%"])
@@ -54,7 +54,7 @@ class DaftarSuratController extends Controller
             });
 
             $suratKeluarQuery->where(function ($query) use ($search) {
-                $query->whereRaw('LOWER(nomor_naskah) like ?', ["%{$search}%"])
+                $query->whereRaw('nomor_naskah like ?', ["%{$search}%"])
                     ->orWhereRaw('LOWER(hal) like ?', ["%{$search}%"])
                     ->orWhere('tanggal_naskah', 'like', "%{$search}%")
                     ->orWhereRaw('LOWER(asal_naskah) like ?', ["%{$search}%"])
