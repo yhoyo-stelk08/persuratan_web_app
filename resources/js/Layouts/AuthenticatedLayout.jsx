@@ -59,7 +59,9 @@ export default function Authenticated({ user, header, children }) {
 
                                         <Dropdown.Content>
                                             <Dropdown.Link
-                                                href={route("daftar-surat")}
+                                                href={route(
+                                                    "daftar-surat.index"
+                                                )}
                                             >
                                                 Daftar Semua Surat
                                             </Dropdown.Link>
