@@ -20,7 +20,7 @@ class SuratMasukController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('SuratMasuk/Create');
     }
 
     /**
