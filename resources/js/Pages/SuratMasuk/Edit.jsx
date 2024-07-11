@@ -2,7 +2,7 @@ import FormInputUpdateSurat from "@/Components/FormInputUpdateSurat";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function EditSuratMasuk({ auth, surat_masuk }) {
+export default function EditSuratMasuk({ auth, data_surat }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -20,7 +20,7 @@ export default function EditSuratMasuk({ auth, surat_masuk }) {
                         <div className="p-6 text-gray-900">
                             <FormInputUpdateSurat
                                 submitRoute={"surat-masuk.update"}
-                                surat_masuk={surat_masuk}
+                                data_surat={data_surat}
                             />
                         </div>
                     </div>

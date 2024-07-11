@@ -77,7 +77,7 @@ class SuratMasukController extends Controller
     {
         $surat_masuk = new SuratMasukResource($suratMasuk);
         return inertia('SuratMasuk/Show', [
-            'surat_masuk' => $surat_masuk,
+            'data_surat' => $surat_masuk,
         ]);
     }
 
@@ -88,7 +88,7 @@ class SuratMasukController extends Controller
     {
         $surat_masuk = new SuratMasukResource($suratMasuk);
         return inertia('SuratMasuk/Edit', [
-            'surat_masuk' => $surat_masuk,
+            'data_surat' => $surat_masuk,
         ]);
     }
 

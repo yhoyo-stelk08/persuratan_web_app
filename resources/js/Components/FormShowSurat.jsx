@@ -11,24 +11,24 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
-export default function FormInputUpdateSurat({ surat_masuk }) {
+export default function FormInputUpdateSurat({ data_surat }) {
     const { data } = useForm({
         tanggal_naskah:
-            surat_masuk?.data?.tanggal_naskah || formatDate(new Date()),
-        nomor_naskah: surat_masuk?.data?.nomor_naskah || "",
-        hal: surat_masuk?.data?.hal || "",
-        asal_naskah: surat_masuk?.data?.asal_naskah || "",
-        sifat_arsip: surat_masuk?.data?.sifat_arsip || "",
-        kode_klasifikasi: surat_masuk?.data?.kode_klasifikasi || "",
-        kode_unit: surat_masuk?.data?.kode_unit || "",
-        uraian_info_berkas: surat_masuk?.data?.uraian_info_berkas || "",
-        tingkat_perkembangan: surat_masuk?.data?.tingkat_perkembangan || "",
-        jumlah_halaman_surat: surat_masuk?.data?.jumlah_halaman_surat || 0,
-        lokasi: surat_masuk?.data?.lokasi || "",
-        masa_aktif: surat_masuk?.data?.masa_aktif || 0,
-        masa_inaktif: surat_masuk?.data?.masa_inaktif || 0,
-        keterangan: surat_masuk?.data?.keterangan || "",
-        jumlah_folder: surat_masuk?.data?.jumlah_folder || 0,
+            data_surat?.data?.tanggal_naskah || formatDate(new Date()),
+        nomor_naskah: data_surat?.data?.nomor_naskah || "",
+        hal: data_surat?.data?.hal || "",
+        asal_naskah: data_surat?.data?.asal_naskah || "",
+        sifat_arsip: data_surat?.data?.sifat_arsip || "",
+        kode_klasifikasi: data_surat?.data?.kode_klasifikasi || "",
+        kode_unit: data_surat?.data?.kode_unit || "",
+        uraian_info_berkas: data_surat?.data?.uraian_info_berkas || "",
+        tingkat_perkembangan: data_surat?.data?.tingkat_perkembangan || "",
+        jumlah_halaman_surat: data_surat?.data?.jumlah_halaman_surat || 0,
+        lokasi: data_surat?.data?.lokasi || "",
+        masa_aktif: data_surat?.data?.masa_aktif || 0,
+        masa_inaktif: data_surat?.data?.masa_inaktif || 0,
+        keterangan: data_surat?.data?.keterangan || "",
+        jumlah_folder: data_surat?.data?.jumlah_folder || 0,
     });
 
     return (
