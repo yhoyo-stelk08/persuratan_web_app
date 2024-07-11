@@ -20,6 +20,9 @@ class SuratMasukController extends Controller
         // Add sorting
         if ($request->has('sort_by') && $request->has('sort_direction')) {
             $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
+        } else {
+            // Default sorting
+            $query->orderByDesc('updated_at');
         }
 
         $surat_masuk = $query->paginate(10);
