@@ -174,6 +174,8 @@ export default function SuratMasukIndex({
                                         sort_direction={sortDirection}
                                         onSorting={handleSort}
                                         columnHeader={columnHeader}
+                                        deleteRoute="surat-masuk.destroy"
+                                        editRoute="surat-masuk.edit"
                                     />
                                     <div>
                                         <Pagination
