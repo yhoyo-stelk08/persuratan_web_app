@@ -9,6 +9,7 @@ export default function TableSurat({
     columnHeader,
     deleteRoute,
     editRoute,
+    showRoute,
 }) {
     // console.log(data_surat.data);
     const hapusSurat = (suratId) => {
@@ -85,18 +86,30 @@ export default function TableSurat({
                                 </td>
 
                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <Link
-                                        href={route(editRoute, [data.id])}
-                                        className="text-indigo-600 hover:text-indigo-900"
-                                    >
-                                        Edit
-                                    </Link>
-                                    <button
-                                        className="ml-2 text-indigo-600 hover:text-indigo-900"
-                                        onClick={() => hapusSurat(data.id)}
-                                    >
-                                        Delete
-                                    </button>
+                                    {showRoute && (
+                                        <Link
+                                            href={route(showRoute, [data.id])}
+                                            className="text-indigo-600 hover:text-indigo-900"
+                                        >
+                                            Detail
+                                        </Link>
+                                    )}
+                                    {editRoute && (
+                                        <Link
+                                            href={route(editRoute, [data.id])}
+                                            className="ml-2 text-indigo-600 hover:text-indigo-900"
+                                        >
+                                            Edit
+                                        </Link>
+                                    )}
+                                    {deleteRoute && (
+                                        <button
+                                            className="ml-2 text-indigo-600 hover:text-indigo-900"
+                                            onClick={() => hapusSurat(data.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         );
