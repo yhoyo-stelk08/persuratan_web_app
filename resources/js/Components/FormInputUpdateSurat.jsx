@@ -139,9 +139,11 @@ export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
                                     name="asal_naskah"
                                     label="Asal Naskah"
                                     errorMsg={errors.asal_naskah}
-                                    formInputType="InputText"
+                                    formInputType="InputTextArea"
                                     onChange={handleChange}
                                     value={data.asal_naskah}
+                                    rows={4}
+                                    className="resize-none"
                                     required
                                 />
                             </div>
@@ -151,12 +153,10 @@ export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
                                     name="hal"
                                     label="Perihal"
                                     errorMsg={errors.hal}
-                                    required
-                                    formInputType="InputTextArea"
+                                    formInputType="InputText"
                                     onChange={handleChange}
                                     value={data.hal}
-                                    rows={4}
-                                    className="resize-none"
+                                    required
                                 />
                             </div>
                             <div className="sm:col-span-2">
