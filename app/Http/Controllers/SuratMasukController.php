@@ -97,7 +97,7 @@ class SuratMasukController extends Controller
      */
     public function update(SuratRequest $request, SuratMasuk $suratMasuk)
     {
-        \Log::debug('Entering students update method');
+        \Log::debug('Entering surat masuk update method');
         try {
             $validated_data = $request->validated();
             \Log::info('Request validated', ['validated' => $validated_data]);
