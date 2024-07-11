@@ -75,7 +75,10 @@ class SuratMasukController extends Controller
      */
     public function show(SuratMasuk $suratMasuk)
     {
-        //
+        $surat_masuk = new SuratMasukResource($suratMasuk);
+        return inertia('SuratMasuk/Show', [
+            'surat_masuk' => $surat_masuk,
+        ]);
     }
 
     /**
