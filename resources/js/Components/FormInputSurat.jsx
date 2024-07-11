@@ -34,7 +34,7 @@ export default function FormInputSurat({ submitRoute }) {
     };
 
     const handleDateChange = (date) => {
-        console.log(date);
+        setData("tanggal_naskah", date);
     };
 
     // console.log("tanggal naskah: ", data.tanggal_naskah);
@@ -64,7 +64,7 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Tanggal Naskah"
                                     formInputType="InputDate"
                                     onChange={handleDateChange}
-                                    // value={data.tanggal_naskah}
+                                    value={data.tanggal_naskah}
                                     errorMsg={errors.tanggal_naskah}
                                     required
                                 />
@@ -237,7 +237,11 @@ export default function FormInputSurat({ submitRoute }) {
                             </div>
                         </div>
                         <div className="w-full flex justify-end items-center my-2 mx-auto py-4 ">
-                            <Button type="submit" color="blue">
+                            <Button
+                                type="submit"
+                                color="blue"
+                                isProcessing={processing}
+                            >
                                 <FaFileCirclePlus className="mr-2 h-5 w-5" />
                                 Register Surat
                             </Button>
