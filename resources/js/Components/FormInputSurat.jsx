@@ -27,12 +27,17 @@ export default function FormInputSurat({ submitRoute }) {
         post(route(submitRoute));
     };
 
-    const handleChange = (e, identifier) => {
-        e.preventDefault();
-        clearErrors(identifier);
+    const handleChange = (e, { id }) => {
+        clearErrors(id);
         const value = e.target.value;
-        setData(identifier, value);
+        setData(id, value || "");
     };
+
+    const handleDateChange = (date) => {
+        console.log(date);
+    };
+
+    // console.log("tanggal naskah: ", data.tanggal_naskah);
 
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -47,6 +52,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Nomor Naskah"
                                     errorMsg={errors.nomor_naskah}
                                     formInputType="InputText"
+                                    onChange={handleChange}
+                                    value={data.nomor_naskah}
                                     required
                                 />
                             </div>
@@ -56,6 +63,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     name="tanggal_naskah"
                                     label="Tanggal Naskah"
                                     formInputType="InputDate"
+                                    onChange={handleDateChange}
+                                    // value={data.tanggal_naskah}
                                     errorMsg={errors.tanggal_naskah}
                                     required
                                 />
@@ -67,6 +76,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Kode Klasifikasi"
                                     errorMsg={errors.kode_klasifikasi}
                                     formInputType="InputText"
+                                    onChange={handleChange}
+                                    value={data.kode_klasifikasi}
                                     disabled
                                     required
                                 />
@@ -78,6 +89,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Kode Unit"
                                     errorMsg={errors.kode_unit}
                                     formInputType="InputText"
+                                    onChange={handleChange}
+                                    value={data.kode_unit}
                                     disabled
                                     required
                                 />
@@ -90,6 +103,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     errorMsg={errors.hal}
                                     required
                                     formInputType="InputTextArea"
+                                    onChange={handleChange}
+                                    value={data.hal}
                                     rows={4}
                                     className="resize-none"
                                 />
@@ -102,6 +117,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     errorMsg={errors.uraian_info_berkas}
                                     required
                                     formInputType="InputTextArea"
+                                    onChange={handleChange}
+                                    value={data.uraian_info_berkas}
                                     rows={4}
                                     className="resize-none"
                                 />
@@ -113,6 +130,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Sifat Arsip"
                                     errorMsg={errors.sifat_arsip}
                                     formInputType="InputSelect"
+                                    onChange={handleChange}
+                                    value={data.sifat_arsip}
                                     required
                                     options={[
                                         { label: "Biasa", value: "BIASA" },
@@ -131,6 +150,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Tingkat Perkembangan"
                                     errorMsg={errors.tingkat_perkembangan}
                                     formInputType="InputSelect"
+                                    onChange={handleChange}
+                                    value={data.tingkat_perkembangan}
                                     required
                                     options={[
                                         { label: "Asli", value: "Asli" },
@@ -145,6 +166,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Lokasi"
                                     errorMsg={errors.lokasi}
                                     formInputType="InputText"
+                                    onChange={handleChange}
+                                    value={data.lokasi}
                                     required
                                 />
                             </div>
@@ -155,6 +178,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Jumlah Halaman Surat"
                                     errorMsg={errors.jumlah_halaman_surat}
                                     formInputType="InputNumber"
+                                    onChange={handleChange}
+                                    value={data.jumlah_halaman_surat}
                                     required
                                 />
                             </div>
@@ -165,6 +190,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Masa Aktif"
                                     errorMsg={errors.masa_aktif}
                                     formInputType="InputNumber"
+                                    onChange={handleChange}
+                                    value={data.masa_aktif}
                                     required
                                 />
                             </div>
@@ -175,6 +202,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Masa Inaktif"
                                     errorMsg={errors.masa_inaktif}
                                     formInputType="InputNumber"
+                                    onChange={handleChange}
+                                    value={data.masa_inaktif}
                                     required
                                 />
                             </div>
@@ -185,6 +214,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Keterangan"
                                     errorMsg={errors.keterangan}
                                     formInputType="InputSelect"
+                                    onChange={handleChange}
+                                    value={data.keterangan}
                                     required
                                     options={[
                                         { label: "Asli", value: "Asli" },
@@ -199,6 +230,8 @@ export default function FormInputSurat({ submitRoute }) {
                                     label="Jumlah Folder"
                                     errorMsg={errors.jumlah_folder}
                                     formInputType="InputNumber"
+                                    onChange={handleChange}
+                                    value={data.jumlah_folder}
                                     required
                                 />
                             </div>

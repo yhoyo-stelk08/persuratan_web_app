@@ -13,6 +13,8 @@ export default function FormInputTextInput({
     label,
     errorMsg,
     formInputType,
+    value = "",
+    onChange,
     ...props
 }) {
     return (
@@ -23,36 +25,59 @@ export default function FormInputTextInput({
             >
                 {label}
             </Label>
-            {formInputType == inputType.InputText && (
+
+            {formInputType === inputType.InputText && (
                 <TextInput
                     name={name}
                     id={id}
                     placeholder={label}
                     type="text"
+                    onChange={(e) => onChange(e, { id })}
+                    value={value}
                     {...props}
                 />
             )}
 
-            {formInputType == inputType.InputNumber && (
+            {formInputType === inputType.InputNumber && (
                 <TextInput
                     name={name}
                     id={id}
                     placeholder={label}
                     type="number"
+                    onChange={(e) => onChange(e, { id })}
+                    value={value}
                     {...props}
                 />
             )}
 
-            {formInputType == inputType.InputTextArea && (
-                <Textarea name={name} id={id} placeholder={label} {...props} />
+            {formInputType === inputType.InputTextArea && (
+                <Textarea
+                    name={name}
+                    id={id}
+                    placeholder={label}
+                    onChange={(e) => onChange(e, { id })}
+                    value={value}
+                    {...props}
+                />
             )}
 
-            {formInputType == inputType.InputDatePicker && (
-                <Datepicker id={id} name={name} {...props} />
+            {formInputType === inputType.InputDatePicker && (
+                <Datepicker
+                    id={id}
+                    name={name}
+                    onSelectedDateChanged={onChange}
+                    {...props}
+                />
             )}
 
-            {formInputType == inputType.InputSelect && (
-                <Select id={id} name={name} {...props}>
+            {formInputType === inputType.InputSelect && (
+                <Select
+                    id={id}
+                    name={name}
+                    onChange={(e) => onChange(e, { id })}
+                    value={value}
+                    {...props}
+                >
                     <option value="">Pilih Kategori</option>
                     {props.options.map((option) => {
                         return (
@@ -64,9 +89,7 @@ export default function FormInputTextInput({
                 </Select>
             )}
 
-            {errorMsg ? (
-                <p className="text-sm text-red-600 ">{errorMsg}</p>
-            ) : null}
+            {errorMsg && <p className="text-sm text-red-600 ">{errorMsg}</p>}
         </>
     );
 }
