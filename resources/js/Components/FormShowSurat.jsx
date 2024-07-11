@@ -44,7 +44,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Nomor Naskah"
                                     formInputType="InputText"
                                     value={data.nomor_naskah}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -54,7 +54,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Tanggal Naskah"
                                     formInputType="InputText"
                                     value={data.tanggal_naskah}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -64,7 +64,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Kode Klasifikasi"
                                     formInputType="InputText"
                                     value={data.kode_klasifikasi}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -74,7 +74,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Kode Unit"
                                     formInputType="InputText"
                                     value={data.kode_unit}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="sm:col-span-2">
@@ -86,7 +86,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     value={data.asal_naskah}
                                     rows={4}
                                     className="resize-none"
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="sm:col-span-2">
@@ -96,7 +96,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Perihal"
                                     formInputType="InputText"
                                     value={data.hal}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="sm:col-span-2">
@@ -108,7 +108,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     value={data.uraian_info_berkas}
                                     rows={4}
                                     className="resize-none"
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -118,7 +118,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Sifat Arsip"
                                     formInputType="InputText"
                                     value={data.sifat_arsip}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -128,7 +128,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Tingkat Perkembangan"
                                     formInputType="InputText"
                                     value={data.tingkat_perkembangan}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -138,7 +138,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Lokasi"
                                     formInputType="InputText"
                                     value={data.lokasi}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -148,7 +148,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Jumlah Halaman Surat"
                                     formInputType="InputText"
                                     value={data.jumlah_halaman_surat}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -158,7 +158,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Masa Aktif"
                                     formInputType="InputText"
                                     value={data.masa_aktif}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -168,7 +168,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Masa Inaktif"
                                     formInputType="InputText"
                                     value={data.masa_inaktif}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -178,7 +178,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Keterangan"
                                     formInputType="InputText"
                                     value={data.keterangan}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                             <div className="w-full">
@@ -188,7 +188,7 @@ export default function FormInputUpdateSurat({ surat_masuk }) {
                                     label="Jumlah Folder"
                                     formInputType="InputText"
                                     value={data.jumlah_folder}
-                                    readOnly
+                                    disabled
                                 />
                             </div>
                         </div>
