@@ -1,5 +1,6 @@
 import Pagination from "@/Components/Pagination";
 import TableSurat from "@/Components/TableSurat";
+import TambahSuratLink from "@/Components/TambahSuratLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -131,7 +132,7 @@ export default function SuratMasukIndex({
                                 </p>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-start sm:flex-row mt-6 w-full">
+                        <div className="flex flex-col justify-start items-center sm:flex-row mt-6 w-full">
                             <div className="relative text-sm text-gray-800 col-span-3 w-1/2">
                                 <div className="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500">
                                     <FaMagnifyingGlass />
@@ -145,6 +146,14 @@ export default function SuratMasukIndex({
                                     id="search"
                                     className="block w-full rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
+                            </div>
+                            <div className="w-1/2">
+                                <TambahSuratLink
+                                    routeName="surat-masuk.create"
+                                    className="w-full"
+                                >
+                                    Register Naskah Masuk
+                                </TambahSuratLink>
                             </div>
                         </div>
 
