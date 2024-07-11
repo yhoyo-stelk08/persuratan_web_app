@@ -1,7 +1,8 @@
 import InputField from "@/Components/FormInputField/InputField";
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { Button } from "flowbite-react";
 import { useEffect } from "react";
+import { FaUndo } from "react-icons/fa";
 import { FaFileCirclePlus } from "react-icons/fa6";
 
 function formatDate(dateString) {
@@ -290,6 +291,13 @@ export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
                             </div>
                         </div>
                         <div className="w-full flex justify-end items-center my-2 mx-auto py-4 ">
+                            <Link
+                                className="flex mr-4 py-2 px-6 border border-blue-500 rounded-lg hover:bg-blue-600 hover:text-white text-sm"
+                                href={route("surat-masuk.index")}
+                            >
+                                <FaUndo className="mr-2 h-5 w-5" />
+                                Cancel
+                            </Link>
                             <Button
                                 type="submit"
                                 color="blue"
