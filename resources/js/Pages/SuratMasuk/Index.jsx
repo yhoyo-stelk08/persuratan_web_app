@@ -176,6 +176,7 @@ export default function SuratMasukIndex({
                                         columnHeader={columnHeader}
                                         deleteRoute="surat-masuk.destroy"
                                         editRoute="surat-masuk.edit"
+                                        showRoute="surat-masuk.show"
                                     />
                                     <div>
                                         <Pagination
