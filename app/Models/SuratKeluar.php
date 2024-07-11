@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class SuratKeluar extends Model
 {
@@ -26,4 +28,19 @@ class SuratKeluar extends Model
         'keterangan',
         'jumlah_folder',
     ];
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    public function scopeSearch(Builder $query, Request $request)
+    {
+        $search = strtolower($request->search);
+
+        return $query->whereRaw('nomor_naskah like ?', ["%{$search}%"])
+            ->orWhereRaw('LOWER(hal) like ?', ["%{$search}%"])
+            ->orWhere('tanggal_naskah', 'like', "%{$search}%")
+            ->orWhereRaw('LOWER(asal_naskah) like ?', ["%{$search}%"])
+            ->orWhereRaw('LOWER(uraian_info_berkas) like ?', ["%{$search}%"]);
+        // Add more conditions if needed;
+    }
 }

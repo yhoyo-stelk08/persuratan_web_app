@@ -29,6 +29,9 @@ class SuratMasuk extends Model
         'jumlah_folder',
     ];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function scopeSearch(Builder $query, Request $request)
     {
         $search = strtolower($request->search);
