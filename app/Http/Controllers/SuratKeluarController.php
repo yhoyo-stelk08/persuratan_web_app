@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SuratRequest;
 use App\Http\Resources\SuratKeluarResource;
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ class SuratKeluarController extends Controller
             $query->orderByDesc('updated_at');
         }
 
-        $surat_masuk = $query->paginate(10);
+        $surat_keluar = $query->paginate(10);
 
-        $data_surat = SuratKeluarResource::collection(($surat_masuk));
+        $data_surat = SuratKeluarResource::collection($surat_keluar);
 
         // Log the results
         \Log::info('Combined Surat', ['Data Surat' => $data_surat]);
@@ -50,9 +51,23 @@ class SuratKeluarController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SuratRequest $request)
     {
-        //
+        \Log::debug('Entering surat keluar store method');
+        try {
+            $validated_data = $request->validated();
+            \Log::info('Request validated', ['validated' => $validated_data]);
+
+            SuratKeluar::create($validated_data);
+            \Log::info('SuratKeluar created successfully', ['surat_keluar' => $validated_data]);
+            return redirect()->route('surat-keluar.index')
+                ->with('message', ['type' => 'success', 'body' => 'Surat sukses di input !']);
+        } catch (\Exception $e) {
+            \Log::error('Error occurred in surat keluar store method', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'Gagal untuk menyimpan surat keluar.']);
+        }
     }
 
     /**

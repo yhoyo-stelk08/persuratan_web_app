@@ -27,7 +27,7 @@ class SuratMasukController extends Controller
 
         $surat_masuk = $query->paginate(10);
 
-        $data_surat = SuratMasukResource::collection(($surat_masuk));
+        $data_surat = SuratMasukResource::collection($surat_masuk);
 
         // Log the results
         \Log::info('Combined Surat', ['Data Surat' => $data_surat]);
