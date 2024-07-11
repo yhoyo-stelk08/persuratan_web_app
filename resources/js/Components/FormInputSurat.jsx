@@ -1,11 +1,21 @@
 import InputField from "@/Components/FormInputField/InputField";
 import { useForm } from "@inertiajs/react";
 import { Button } from "flowbite-react";
+import { useEffect } from "react";
 import { FaFileCirclePlus } from "react-icons/fa6";
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
 
 export default function FormInputSurat({ submitRoute }) {
     const { data, setData, post, errors, clearErrors, processing } = useForm({
-        tanggal_naskah: "",
+        tanggal_naskah: formatDate(new Date()),
         nomor_naskah: "",
         hal: "",
         asal_naskah: "",
@@ -22,6 +32,28 @@ export default function FormInputSurat({ submitRoute }) {
         jumlah_folder: 1,
     });
 
+    // automatically filled the kode_klasifikasi and kode_unit field
+    useEffect(() => {
+        const parts = data.nomor_naskah.split("/");
+        if (parts.length >= 2) {
+            const kode_klasifikasi = parts[0];
+            const kode_unit = parts[1];
+            setData((prevData) => ({
+                ...prevData,
+                kode_klasifikasi: kode_klasifikasi,
+                kode_unit: kode_unit,
+            }));
+        }
+    }, [data.nomor_naskah]);
+
+    // automatically filled the uraian_info_berkas field
+    useEffect(() => {
+        setData((prevData) => ({
+            ...prevData,
+            uraian_info_berkas: `${data.asal_naskah} Nomor: ${data.nomor_naskah} ${data.hal}`,
+        }));
+    }, [data.nomor_naskah, data.asal_naskah, data.hal]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route(submitRoute));
@@ -34,10 +66,8 @@ export default function FormInputSurat({ submitRoute }) {
     };
 
     const handleDateChange = (date) => {
-        setData("tanggal_naskah", date);
+        setData("tanggal_naskah", formatDate(date));
     };
-
-    // console.log("tanggal naskah: ", data.tanggal_naskah);
 
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -78,7 +108,7 @@ export default function FormInputSurat({ submitRoute }) {
                                     formInputType="InputText"
                                     onChange={handleChange}
                                     value={data.kode_klasifikasi}
-                                    disabled
+                                    readOnly
                                     required
                                 />
                             </div>
@@ -91,7 +121,19 @@ export default function FormInputSurat({ submitRoute }) {
                                     formInputType="InputText"
                                     onChange={handleChange}
                                     value={data.kode_unit}
-                                    disabled
+                                    readOnly
+                                    required
+                                />
+                            </div>
+                            <div className="sm:col-span-2">
+                                <InputField
+                                    id="asal_naskah"
+                                    name="asal_naskah"
+                                    label="Asal Naskah"
+                                    errorMsg={errors.asal_naskah}
+                                    formInputType="InputText"
+                                    onChange={handleChange}
+                                    value={data.asal_naskah}
                                     required
                                 />
                             </div>
@@ -121,6 +163,7 @@ export default function FormInputSurat({ submitRoute }) {
                                     value={data.uraian_info_berkas}
                                     rows={4}
                                     className="resize-none"
+                                    readOnly
                                 />
                             </div>
                             <div className="w-full">
@@ -218,8 +261,11 @@ export default function FormInputSurat({ submitRoute }) {
                                     value={data.keterangan}
                                     required
                                     options={[
-                                        { label: "Asli", value: "Asli" },
-                                        { label: "Copy", value: "Copy" },
+                                        { label: "Musnah", value: "Musnah" },
+                                        {
+                                            label: "Permanen",
+                                            value: "Permanen",
+                                        },
                                     ]}
                                 />
                             </div>
