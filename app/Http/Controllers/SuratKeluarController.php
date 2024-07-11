@@ -44,7 +44,7 @@ class SuratKeluarController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('SuratKeluar/Create');
     }
 
     /**
