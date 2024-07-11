@@ -47,6 +47,10 @@ export default function FormInputTextInput({
                 <Textarea name={name} id={id} placeholder={label} {...props} />
             )}
 
+            {formInputType == inputType.InputDatePicker && (
+                <Datepicker id={id} name={name} {...props} />
+            )}
+
             {errorMsg ? (
                 <p className="text-sm text-red-600 ">{errorMsg}</p>
             ) : null}
