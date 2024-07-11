@@ -12,6 +12,7 @@ class DaftarSuratController extends Controller
 {
     public function index(Request $request)
     {
+        \Log::debug('Entering daftar surat index method');
         // Get search parameters
         $search = $request->input('search');
 
