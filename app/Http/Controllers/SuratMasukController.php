@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SuratRequest;
 use App\Http\Resources\SuratMasukResource;
 use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
@@ -47,9 +48,23 @@ class SuratMasukController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SuratRequest $request)
     {
-        //
+        \Log::debug('Entering surat masuk store method');
+        try {
+            $validated_data = $request->validated();
+            \Log::info('Request validated', ['validated' => $validated_data]);
+
+            SuratMasuk::create($validated_data);
+            \Log::info('SuratMasuk created successfully', ['surat_masuk' => $validated_data]);
+            return redirect()->route('surat-masuk.index')
+                ->with('message', ['type' => 'success', 'body' => 'Surat sukses di input !']);
+        } catch (\Exception $e) {
+            \Log::error('Error occurred in surat masuk store method', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'Gagal untuk menyimpan surat masuk.']);
+        }
     }
 
     /**
@@ -92,7 +107,7 @@ class SuratMasukController extends Controller
             \Log::error('Error occurred in surat masuk destroy method', ['error' => $e->getMessage()]);
 
             return redirect()->back()
-                ->with('message', ['type' => 'error', 'body' => 'Gagal untuk menghapus surat']);
+                ->with('message', ['type' => 'error', 'body' => 'Gagal menghapus surat']);
         }
     }
 }
