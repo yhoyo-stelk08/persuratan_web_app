@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SuratKeluarResource;
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,32 @@ class SuratKeluarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('SuratKeluar/Index');
+        \Log::debug('Entering surat keluar index method');
+        $query = SuratKeluar::search($request);
+
+        // Add sorting
+        if ($request->has('sort_by') && $request->has('sort_direction')) {
+            $query->orderBy($request->get('sort_by'), $request->get('sort_direction'));
+        } else {
+            // Default sorting
+            $query->orderByDesc('updated_at');
+        }
+
+        $surat_masuk = $query->paginate(10);
+
+        $data_surat = SuratKeluarResource::collection(($surat_masuk));
+
+        // Log the results
+        \Log::info('Combined Surat', ['Data Surat' => $data_surat]);
+
+        return inertia('SuratKeluar/Index', [
+            'data_surat' => $data_surat,
+            'search' => $request->search ?? "",
+            'sort_by' => $request->sort_by ?? "",
+            'sort_direction' => $request->sort_direction ?? "",
+        ]);
     }
 
     /**
