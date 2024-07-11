@@ -7,10 +7,13 @@ export default function TableSurat({
     data_surat,
     onSorting,
     columnHeader,
+    deleteRoute,
+    editRoute,
 }) {
+    // console.log(data_surat.data);
     const hapusSurat = (suratId) => {
         if (confirm("Are you sure you want to delete this record?")) {
-            router.delete(route("daftar-surat.destroy", suratId), {
+            router.delete(route(deleteRoute, suratId), {
                 preserveScroll: true,
             });
         }
@@ -83,7 +86,7 @@ export default function TableSurat({
 
                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                     <Link
-                                        href="#"
+                                        href={route(editRoute, [data.id])}
                                         className="text-indigo-600 hover:text-indigo-900"
                                     >
                                         Edit
