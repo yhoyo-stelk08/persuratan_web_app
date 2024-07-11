@@ -1,9 +1,9 @@
 import Pagination from "@/Components/Pagination";
+import TableSurat from "@/Components/TableSurat";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { RxCaretDown, RxCaretSort, RxCaretUp } from "react-icons/rx";
 import { useDebounce } from "use-debounce";
 
 export default function DaftarSurat({
@@ -22,13 +22,13 @@ export default function DaftarSurat({
     const [sortBy, setSortBy] = useState(sort_by || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
     const [sortDirection, setSortDirection] = useState(sort_direction || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
 
-    const hapusSurat = (suratId) => {
-        if (confirm("Are you sure you want to delete this record?")) {
-            router.delete(route("daftar-surat.destroy", suratId), {
-                preserveScroll: true,
-            });
-        }
-    };
+    // const hapusSurat = (suratId) => {
+    //     if (confirm("Are you sure you want to delete this record?")) {
+    //         router.delete(route("daftar-surat.destroy", suratId), {
+    //             preserveScroll: true,
+    //         });
+    //     }
+    // };
 
     const handleChange = (e) => {
         const { value: _searchTerm } = e.target;
@@ -159,118 +159,12 @@ export default function DaftarSurat({
                                             }
                                         />
                                     </div>
-                                    <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg relative">
-                                        <table className="min-w-full divide-y divide-gray-300">
-                                            <thead className="bg-gray-50">
-                                                <tr>
-                                                    {[
-                                                        "Tanggal Naskah",
-                                                        "Nomor Naskah",
-                                                        "Perihal",
-                                                        "Asal Naskah",
-                                                        "Uraian Informasi Berkas",
-                                                    ].map((column) => {
-                                                        const columnKey = column
-                                                            .toLowerCase()
-                                                            .replace(/ /g, "_");
-                                                        return (
-                                                            <th
-                                                                key={column}
-                                                                onClick={() =>
-                                                                    handleSort(
-                                                                        columnKey
-                                                                    )
-                                                                }
-                                                                scope="col"
-                                                                className={`py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 cursor-pointer ${
-                                                                    sortBy ===
-                                                                    columnKey
-                                                                        ? "underline"
-                                                                        : ""
-                                                                }`}
-                                                            >
-                                                                <div className="flex items-center">
-                                                                    {column}
-                                                                    {sortBy ===
-                                                                        columnKey && (
-                                                                        <span className="ml-1">
-                                                                            {sortDirection ===
-                                                                            "asc" ? (
-                                                                                <RxCaretUp />
-                                                                            ) : sortDirection ===
-                                                                              "desc" ? (
-                                                                                <RxCaretDown />
-                                                                            ) : sortDirection ===
-                                                                              "" ? (
-                                                                                <RxCaretSort />
-                                                                            ) : null}
-                                                                        </span>
-                                                                    )}
-                                                                </div>
-                                                            </th>
-                                                        );
-                                                    })}
-
-                                                    <th
-                                                        scope="col"
-                                                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                                                    />
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-gray-200 bg-white">
-                                                {data_surat.data.map(
-                                                    (data, index) => {
-                                                        return (
-                                                            <tr key={index}>
-                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                    {
-                                                                        data.tanggal_naskah
-                                                                    }
-                                                                </td>
-                                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                    {
-                                                                        data.nomor_naskah
-                                                                    }
-                                                                </td>
-                                                                <td className="whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                    {data.hal}
-                                                                </td>
-                                                                <td className="whitespace-pre-wrap text-ellipsis py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                    {
-                                                                        data.asal_naskah
-                                                                    }
-                                                                </td>
-                                                                <td className="whitespace-pre-wrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                                    {
-                                                                        data.uraian_info_berkas
-                                                                    }
-                                                                </td>
-
-                                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                                    <Link
-                                                                        href="#"
-                                                                        className="text-indigo-600 hover:text-indigo-900"
-                                                                    >
-                                                                        Edit
-                                                                    </Link>
-                                                                    <button
-                                                                        className="ml-2 text-indigo-600 hover:text-indigo-900"
-                                                                        onClick={() =>
-                                                                            hapusSurat(
-                                                                                data.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        Delete
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        );
-                                                    }
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <TableSurat
+                                        data_surat={data_surat}
+                                        sort_by={sortBy}
+                                        sort_direction={sortDirection}
+                                        onSorting={handleSort}
+                                    />
                                     <div>
                                         <Pagination
                                             meta={data_surat.meta}
