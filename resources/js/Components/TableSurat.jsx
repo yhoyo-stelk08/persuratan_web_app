@@ -1,18 +1,13 @@
 import { Link, router } from "@inertiajs/react";
-import { RxCaretDown, RxCaretSort, RxCaretUp } from "react-icons/rx";
+import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 
 export default function TableSurat({
     sort_by,
     sort_direction,
     data_surat,
     onSorting,
+    columnHeader,
 }) {
-    // console.log(data_surat);
-    // const [sortBy, setSortBy] = useState(sort_by || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
-    // const [sortDirection, setSortDirection] = useState(sort_direction || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
-
-    // const isInitialRender = useRef(true);
-
     const hapusSurat = (suratId) => {
         if (confirm("Are you sure you want to delete this record?")) {
             router.delete(route("daftar-surat.destroy", suratId), {
@@ -30,13 +25,7 @@ export default function TableSurat({
             <table className="min-w-full divide-y divide-gray-300">
                 <thead className="bg-gray-50">
                     <tr>
-                        {[
-                            "Tanggal Naskah",
-                            "Nomor Naskah",
-                            "Perihal",
-                            "Asal Naskah",
-                            "Uraian Informasi Berkas",
-                        ].map((column) => {
+                        {columnHeader.map((column) => {
                             const columnKey = column
                                 .toLowerCase()
                                 .replace(/ /g, "_");
@@ -58,8 +47,6 @@ export default function TableSurat({
                                                 ) : sort_direction ===
                                                   "desc" ? (
                                                     <RxCaretDown />
-                                                ) : sort_direction === "" ? (
-                                                    <RxCaretSort />
                                                 ) : null}
                                             </span>
                                         )}

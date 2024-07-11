@@ -22,13 +22,13 @@ export default function DaftarSurat({
     const [sortBy, setSortBy] = useState(sort_by || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
     const [sortDirection, setSortDirection] = useState(sort_direction || ""); // "" for not sorted, "asc" for ascending, "desc" for descending
 
-    // const hapusSurat = (suratId) => {
-    //     if (confirm("Are you sure you want to delete this record?")) {
-    //         router.delete(route("daftar-surat.destroy", suratId), {
-    //             preserveScroll: true,
-    //         });
-    //     }
-    // };
+    const columnHeader = [
+        "Tanggal Naskah",
+        "Nomor Naskah",
+        "Perihal",
+        "Asal Naskah",
+        "Uraian Informasi Berkas",
+    ];
 
     const handleChange = (e) => {
         const { value: _searchTerm } = e.target;
@@ -99,7 +99,7 @@ export default function DaftarSurat({
             isInitialRender.current = false;
             return;
         }
-        // visit the student url whenever it changed
+        // visit the data surat url whenever it changed
         router.visit(dataSuratURL, {
             preserveScroll: true,
             preserveState: true,
@@ -164,6 +164,7 @@ export default function DaftarSurat({
                                         sort_by={sortBy}
                                         sort_direction={sortDirection}
                                         onSorting={handleSort}
+                                        columnHeader={columnHeader}
                                     />
                                     <div>
                                         <Pagination
