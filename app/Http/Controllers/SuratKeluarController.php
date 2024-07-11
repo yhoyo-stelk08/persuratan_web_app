@@ -75,7 +75,10 @@ class SuratKeluarController extends Controller
      */
     public function show(SuratKeluar $suratKeluar)
     {
-        //
+        $surat_keluar = new SuratKeluarResource($suratKeluar);
+        return inertia('SuratKeluar/Show', [
+            'data_surat' => $surat_keluar,
+        ]);
     }
 
     /**
