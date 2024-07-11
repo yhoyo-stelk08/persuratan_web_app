@@ -86,15 +86,32 @@ class SuratKeluarController extends Controller
      */
     public function edit(SuratKeluar $suratKeluar)
     {
-        //
+        $surat_keluar = new SuratKeluarResource($suratKeluar);
+        return inertia('SuratKeluar/Edit', [
+            'data_surat' => $surat_keluar,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SuratKeluar $suratKeluar)
+    public function update(SuratRequest $request, SuratKeluar $suratKeluar)
     {
-        //
+        \Log::debug('Entering surat keluar update method');
+        try {
+            $validated_data = $request->validated();
+            \Log::info('Request validated', ['validated' => $validated_data]);
+            $suratKeluar->update($validated_data);
+            \Log::info('SuratKeluar updated successfully', ['surat keluar' => $validated_data]);
+
+            return redirect()->route('surat-keluar.index')
+                ->with('message', ['type' => 'success', 'body' => 'Surat berhasil di update!']);
+        } catch (\Exception $e) {
+            \Log::error('Error occurred in surat keluar update method', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'Gagal update surat.']);
+        }
     }
 
     /**
