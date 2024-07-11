@@ -15,24 +15,25 @@ function formatDate(dateString) {
 
 export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
     console.log(surat_masuk);
-    const { data, setData, post, errors, clearErrors, processing } = useForm({
-        tanggal_naskah:
-            surat_masuk?.data?.tanggal_naskah || formatDate(new Date()),
-        nomor_naskah: surat_masuk?.data?.nomor_naskah || "",
-        hal: surat_masuk?.data?.hal || "",
-        asal_naskah: surat_masuk?.data?.asal_naskah || "",
-        sifat_arsip: surat_masuk?.data?.sifat_arsip || "",
-        kode_klasifikasi: surat_masuk?.data?.kode_klasifikasi || "",
-        kode_unit: surat_masuk?.data?.kode_unit || "",
-        uraian_info_berkas: surat_masuk?.data?.uraian_info_berkas || "",
-        tingkat_perkembangan: surat_masuk?.data?.tingkat_perkembangan || "",
-        jumlah_halaman_surat: surat_masuk?.data?.jumlah_halaman_surat || 1,
-        lokasi: surat_masuk?.data?.lokasi || "",
-        masa_aktif: surat_masuk?.data?.masa_aktif || 1,
-        masa_inaktif: surat_masuk?.data?.masa_inaktif || 1,
-        keterangan: surat_masuk?.data?.keterangan || "",
-        jumlah_folder: surat_masuk?.data?.jumlah_folder || 1,
-    });
+    const { data, setData, post, put, errors, clearErrors, processing } =
+        useForm({
+            tanggal_naskah:
+                surat_masuk?.data?.tanggal_naskah || formatDate(new Date()),
+            nomor_naskah: surat_masuk?.data?.nomor_naskah || "",
+            hal: surat_masuk?.data?.hal || "",
+            asal_naskah: surat_masuk?.data?.asal_naskah || "",
+            sifat_arsip: surat_masuk?.data?.sifat_arsip || "",
+            kode_klasifikasi: surat_masuk?.data?.kode_klasifikasi || "",
+            kode_unit: surat_masuk?.data?.kode_unit || "",
+            uraian_info_berkas: surat_masuk?.data?.uraian_info_berkas || "",
+            tingkat_perkembangan: surat_masuk?.data?.tingkat_perkembangan || "",
+            jumlah_halaman_surat: surat_masuk?.data?.jumlah_halaman_surat || 1,
+            lokasi: surat_masuk?.data?.lokasi || "",
+            masa_aktif: surat_masuk?.data?.masa_aktif || 1,
+            masa_inaktif: surat_masuk?.data?.masa_inaktif || 1,
+            keterangan: surat_masuk?.data?.keterangan || "",
+            jumlah_folder: surat_masuk?.data?.jumlah_folder || 1,
+        });
 
     // automatically filled the kode_klasifikasi and kode_unit field
     useEffect(() => {
@@ -58,7 +59,11 @@ export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route(submitRoute));
+        if (surat_masuk) {
+            put(route(submitRoute, { surat_masuk: surat_masuk.data.id }));
+        } else {
+            post(route(submitRoute));
+        }
     };
 
     const handleChange = (e, { id }) => {
@@ -291,7 +296,7 @@ export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
                                 isProcessing={processing}
                             >
                                 <FaFileCirclePlus className="mr-2 h-5 w-5" />
-                                Register Surat
+                                {surat_masuk ? "Update Surat" : "Register"}
                             </Button>
                         </div>
                     </form>
