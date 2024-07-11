@@ -11,7 +11,7 @@ class SuratRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +22,7 @@ class SuratRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tanggal_naskah' => ['required'],
+            'tanggal_naskah' => ['required', 'date_format:Y-m-d'],
             'nomor_naskah' => ['required', 'max:255'],
             'hal' => ['required'],
             'asal_naskah' => ['required'],
