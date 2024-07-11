@@ -1,4 +1,5 @@
 import { Link, router } from "@inertiajs/react";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 
 export default function TableSurat({
@@ -68,7 +69,7 @@ export default function TableSurat({
                 <tbody className="divide-y divide-gray-200 bg-white">
                     {data_surat.data.map((data, index) => {
                         return (
-                            <tr key={index}>
+                            <tr key={index} className="align-top text-left">
                                 <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                     {data.tanggal_naskah}
                                 </td>
@@ -86,30 +87,41 @@ export default function TableSurat({
                                 </td>
 
                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    {showRoute && (
-                                        <Link
-                                            href={route(showRoute, [data.id])}
-                                            className="text-indigo-600 hover:text-indigo-900"
-                                        >
-                                            Detail
-                                        </Link>
-                                    )}
-                                    {editRoute && (
-                                        <Link
-                                            href={route(editRoute, [data.id])}
-                                            className="ml-2 text-indigo-600 hover:text-indigo-900"
-                                        >
-                                            Edit
-                                        </Link>
-                                    )}
-                                    {deleteRoute && (
-                                        <button
-                                            className="ml-2 text-indigo-600 hover:text-indigo-900"
-                                            onClick={() => hapusSurat(data.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                    )}
+                                    <div className="flex flex-col gap-1 items-start justify-start">
+                                        {showRoute && (
+                                            <Link
+                                                href={route(showRoute, [
+                                                    data.id,
+                                                ])}
+                                                className="flex items-center text-indigo-600 hover:text-indigo-900"
+                                            >
+                                                <FaEye className="w-3 h-3 mr-2" />
+                                                Detail
+                                            </Link>
+                                        )}
+                                        {editRoute && (
+                                            <Link
+                                                href={route(editRoute, [
+                                                    data.id,
+                                                ])}
+                                                className="flex items-center text-indigo-600 hover:text-indigo-900"
+                                            >
+                                                <FaEdit className="w-3 h-3 mr-2" />
+                                                Edit
+                                            </Link>
+                                        )}
+                                        {deleteRoute && (
+                                            <button
+                                                className="flex items-center text-indigo-600 hover:text-indigo-900"
+                                                onClick={() =>
+                                                    hapusSurat(data.id)
+                                                }
+                                            >
+                                                <FaTrash className="w-3 h-3 mr-2" />
+                                                Delete
+                                            </button>
+                                        )}
+                                    </div>
                                 </td>
                             </tr>
                         );
