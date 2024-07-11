@@ -15,7 +15,6 @@ function formatDate(dateString) {
 }
 
 export default function FormInputUpdateSurat({ submitRoute, surat_masuk }) {
-    console.log(surat_masuk);
     const { data, setData, post, put, errors, clearErrors, processing } =
         useForm({
             tanggal_naskah:
