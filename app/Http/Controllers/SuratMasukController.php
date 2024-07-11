@@ -83,15 +83,32 @@ class SuratMasukController extends Controller
      */
     public function edit(SuratMasuk $suratMasuk)
     {
-        //
+        $surat_masuk = new SuratMasukResource($suratMasuk);
+        return inertia('SuratMasuk/Edit', [
+            'surat_masuk' => $surat_masuk,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SuratMasuk $suratMasuk)
+    public function update(SuratRequest $request, SuratMasuk $suratMasuk)
     {
-        //
+        \Log::debug('Entering students update method');
+        try {
+            $validated_data = $request->validated();
+            \Log::info('Request validated', ['validated' => $validated_data]);
+            $suratMasuk->update($validated_data);
+            \Log::info('SuratMasuk updated successfully', ['surat masuk' => $validated_data]);
+
+            return redirect()->route('surat-masuk.index')
+                ->with('message', ['type' => 'success', 'body' => 'Surat berhasil di update!']);
+        } catch (\Exception $e) {
+            \Log::error('Error occurred in surat masuk update method', ['error' => $e->getMessage()]);
+
+            return redirect()->back()
+                ->with('message', ['type' => 'error', 'body' => 'Gagal update surat.']);
+        }
     }
 
     /**
@@ -104,7 +121,7 @@ class SuratMasukController extends Controller
             $suratMasuk->delete();
             \Log::info('SuratMasuk deleted successfully', ['student' => $suratMasuk]);
 
-            return redirect()->route('surat_masuk.index')
+            return redirect()->route('surat-masuk.index')
                 ->with('message', ['type' => 'success', 'body' => 'Surat sukses di hapus']);
         } catch (\Exception $e) {
             \Log::error('Error occurred in surat masuk destroy method', ['error' => $e->getMessage()]);
