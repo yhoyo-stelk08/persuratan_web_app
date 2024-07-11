@@ -1,221 +1,205 @@
-import {
-    Button,
-    Datepicker,
-    Label,
-    Select,
-    TextInput,
-    Textarea,
-} from "flowbite-react";
+import InputField from "@/Components/FormInputField/InputField";
+import { useForm } from "@inertiajs/react";
+import { Button } from "flowbite-react";
 import { FaFileCirclePlus } from "react-icons/fa6";
 
-export default function FormInputSurat() {
+export default function FormInputSurat({ submitRoute }) {
+    const { data, setData, post, errors, clearErrors, processing } = useForm({
+        tanggal_naskah: "",
+        nomor_naskah: "",
+        hal: "",
+        asal_naskah: "",
+        sifat_arsip: "",
+        kode_klasifikasi: "",
+        kode_unit: "",
+        uraian_info_berkas: "",
+        tingkat_perkembangan: "",
+        jumlah_halaman_surat: 1,
+        lokasi: "",
+        masa_aktif: 1,
+        masa_inaktif: 1,
+        keterangan: "",
+        jumlah_folder: 1,
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route(submitRoute));
+    };
+
+    const handleChange = (e, identifier) => {
+        e.preventDefault();
+        clearErrors(identifier);
+        const value = e.target.value;
+        setData(identifier, value);
+    };
+
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
                 <div className="space-y-6 sm:px-6 lg:px-0 lg:col-span-12">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div className="w-full">
-                                <Label
-                                    htmlFor="nomor_naskah"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Nomor Naskah
-                                </Label>
-                                <TextInput
-                                    name="nomor_naskah"
+                                <InputField
                                     id="nomor_naskah"
-                                    placeholder="Nomor Naskah"
-                                    required=""
+                                    name="nomor_naskah"
+                                    label="Nomor Naskah"
+                                    errorMsg={errors.nomor_naskah}
+                                    formInputType="InputText"
+                                    required
                                 />
                             </div>
-                            <div>
-                                <Label
-                                    htmlFor="tanggal_naskah"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Tanggal Naskah
-                                </Label>
-                                <Datepicker
+                            <div className="w-full">
+                                <InputField
                                     id="tanggal_naskah"
                                     name="tanggal_naskah"
+                                    label="Tanggal Naskah"
+                                    formInputType="InputDate"
+                                    errorMsg={errors.tanggal_naskah}
                                     required
                                 />
                             </div>
                             <div className="w-full">
-                                <Label
-                                    htmlFor="kode_klasifikasi"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Kode Klasifikasi
-                                </Label>
-                                <TextInput
-                                    name="kode_klasifikasi"
+                                <InputField
                                     id="kode_klasifikasi"
-                                    placeholder="Kode Klasifikasi"
-                                    required=""
+                                    name="kode_klasifikasi"
+                                    label="Kode Klasifikasi"
+                                    errorMsg={errors.kode_klasifikasi}
+                                    formInputType="InputText"
                                     disabled
+                                    required
                                 />
                             </div>
                             <div className="w-full">
-                                <Label
-                                    htmlFor="kode_unit"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Kode Unit
-                                </Label>
-                                <TextInput
-                                    name="kode_unit"
+                                <InputField
                                     id="kode_unit"
-                                    placeholder="Kode Unit"
-                                    required=""
+                                    name="kode_unit"
+                                    label="Kode Unit"
+                                    errorMsg={errors.kode_unit}
+                                    formInputType="InputText"
                                     disabled
+                                    required
                                 />
                             </div>
                             <div className="sm:col-span-2">
-                                <Label
-                                    htmlFor="hal"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Perihal
-                                </Label>
-                                <Textarea
-                                    name="hal"
+                                <InputField
                                     id="hal"
-                                    placeholder="Perihal"
-                                    rows={4}
+                                    name="hal"
+                                    label="Perihal"
+                                    errorMsg={errors.hal}
                                     required
+                                    formInputType="InputTextArea"
+                                    rows={4}
                                     className="resize-none"
                                 />
                             </div>
-                            <div>
-                                <Label
-                                    htmlFor="sifat_arsip"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Sifat Arsip
-                                </Label>
-                                <Select
-                                    id="sifat_arsip"
-                                    name="sifat_arsip"
-                                    required
-                                >
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="BIASA">Biasa</option>
-                                    <option value="TERBATAS">Terbatas</option>
-                                    <option value="RAHASIA">Rahasia</option>
-                                </Select>
-                            </div>
-                            <div>
-                                <Label
-                                    htmlFor="tingkat_perkembangan"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Tingkat Perkembangan
-                                </Label>
-                                <Select
-                                    id="tingkat_perkembangan"
-                                    name="tingkat_perkembangan"
-                                    required
-                                >
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Asli">Asli</option>
-                                    <option value="Copy">Copy</option>
-                                </Select>
-                            </div>
                             <div className="sm:col-span-2">
-                                <Label
-                                    htmlFor="lokasi"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Lokasi
-                                </Label>
-                                <TextInput
-                                    name="lokasi"
-                                    id="lokasi"
-                                    placeholder="Lokasi"
-                                    required=""
-                                />
-                            </div>
-                            <div className="sm:col-span-2">
-                                <Label
-                                    htmlFor="uraian_info_berkas"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Uraian Informasi Berkas
-                                </Label>
-                                <Textarea
+                                <InputField
                                     id="uraian_info_berkas"
                                     name="uraian_info_berkas"
+                                    label="Uraian Informasi Berkas"
+                                    errorMsg={errors.uraian_info_berkas}
+                                    required
+                                    formInputType="InputTextArea"
                                     rows={4}
                                     className="resize-none"
-                                    placeholder="Urian Infomasi Berkas"
-                                    disabled
-                                ></Textarea>
+                                />
                             </div>
                             <div className="w-full">
-                                <Label
-                                    htmlFor="masa_aktif"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Masa Aktif
-                                </Label>
-                                <TextInput
-                                    type="number"
-                                    name="masa_aktif"
+                                <InputField
+                                    id="sifat_arsip"
+                                    name="sifat_arsip"
+                                    label="Sifat Arsip"
+                                    errorMsg={errors.sifat_arsip}
+                                    formInputType="InputSelect"
+                                    required
+                                    options={[
+                                        { label: "Biasa", value: "BIASA" },
+                                        {
+                                            label: "Terbatas",
+                                            value: "TERBATAS",
+                                        },
+                                        { label: "Rahasia", value: "RAHASIA" },
+                                    ]}
+                                />
+                            </div>
+                            <div className="w-full">
+                                <InputField
+                                    id="tingkat_perkembangan"
+                                    name="tingkat_perkembangan"
+                                    label="Tingkat Perkembangan"
+                                    errorMsg={errors.tingkat_perkembangan}
+                                    formInputType="InputSelect"
+                                    required
+                                    options={[
+                                        { label: "Asli", value: "Asli" },
+                                        { label: "Copy", value: "Copy" },
+                                    ]}
+                                />
+                            </div>
+                            <div className="w-full">
+                                <InputField
+                                    id="lokasi"
+                                    name="lokasi"
+                                    label="Lokasi"
+                                    errorMsg={errors.lokasi}
+                                    formInputType="InputText"
+                                    required
+                                />
+                            </div>
+                            <div className="w-full">
+                                <InputField
+                                    id="jumlah_halaman_surat"
+                                    name="jumlah_halaman_surat"
+                                    label="Jumlah Halaman Surat"
+                                    errorMsg={errors.jumlah_halaman_surat}
+                                    formInputType="InputNumber"
+                                    required
+                                />
+                            </div>
+                            <div className="w-full">
+                                <InputField
                                     id="masa_aktif"
-                                    placeholder="Masa Aktif"
-                                    required=""
-                                    defaultValue={1}
+                                    name="masa_aktif"
+                                    label="Masa Aktif"
+                                    errorMsg={errors.masa_aktif}
+                                    formInputType="InputNumber"
+                                    required
                                 />
                             </div>
                             <div className="w-full">
-                                <Label
-                                    htmlFor="masa_inaktif"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Masa Inaktif
-                                </Label>
-                                <TextInput
-                                    type="number"
-                                    name="masa_inaktif"
+                                <InputField
                                     id="masa_inaktif"
-                                    placeholder="Masa Inaktif"
-                                    required=""
-                                    defaultValue={1}
+                                    name="masa_inaktif"
+                                    label="Masa Inaktif"
+                                    errorMsg={errors.masa_inaktif}
+                                    formInputType="InputNumber"
+                                    required
                                 />
                             </div>
-                            <div>
-                                <Label
-                                    htmlFor="keterangan"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Keterangan
-                                </Label>
-                                <Select
+                            <div className="w-full">
+                                <InputField
                                     id="keterangan"
                                     name="keterangan"
+                                    label="Keterangan"
+                                    errorMsg={errors.keterangan}
+                                    formInputType="InputSelect"
                                     required
-                                >
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Musnah">Musnah</option>
-                                    <option value="Permanen">Permanen</option>
-                                </Select>
+                                    options={[
+                                        { label: "Asli", value: "Asli" },
+                                        { label: "Copy", value: "Copy" },
+                                    ]}
+                                />
                             </div>
                             <div className="w-full">
-                                <Label
-                                    htmlFor="jumlah_folder"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >
-                                    Jumlah Folder
-                                </Label>
-                                <TextInput
-                                    type="number"
-                                    name="jumlah_folder"
+                                <InputField
                                     id="jumlah_folder"
-                                    placeholder="Jumlah Folder"
-                                    required=""
-                                    defaultValue={1}
+                                    name="jumlah_folder"
+                                    label="Jumlah Folder"
+                                    errorMsg={errors.jumlah_folder}
+                                    formInputType="InputNumber"
+                                    required
                                 />
                             </div>
                         </div>
