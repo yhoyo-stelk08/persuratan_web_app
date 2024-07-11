@@ -131,8 +131,8 @@ export default function SuratMasukIndex({
                                 </p>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-start sm:flex-row mt-6">
-                            <div className="relative text-sm text-gray-800 col-span-3">
+                        <div className="flex flex-col justify-start sm:flex-row mt-6 w-full">
+                            <div className="relative text-sm text-gray-800 col-span-3 w-1/2">
                                 <div className="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500">
                                     <FaMagnifyingGlass />
                                 </div>
@@ -141,9 +141,9 @@ export default function SuratMasukIndex({
                                     value={searchTerm}
                                     type="text"
                                     autoComplete="off"
-                                    placeholder="Search roles data..."
+                                    placeholder="Cari naskah masuk..."
                                     id="search"
-                                    className="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className="block w-full rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                         </div>
