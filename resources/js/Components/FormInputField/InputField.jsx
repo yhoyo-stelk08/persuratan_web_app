@@ -1,4 +1,4 @@
-import { Label, TextInput } from "flowbite-react";
+import { Label, TextInput, Textarea } from "flowbite-react";
 
 const inputType = {
     InputText: "InputText",
@@ -43,11 +43,9 @@ export default function FormInputTextInput({
                 />
             )}
 
-            {/* {
-                inputType.InputTextArea && (
-
-                )
-            } */}
+            {formInputType == inputType.InputTextArea && (
+                <Textarea name={name} id={id} placeholder={label} {...props} />
+            )}
 
             {errorMsg ? (
                 <p className="text-sm text-red-600 ">{errorMsg}</p>
