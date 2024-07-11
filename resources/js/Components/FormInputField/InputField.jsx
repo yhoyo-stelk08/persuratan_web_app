@@ -1,4 +1,4 @@
-import { Label, TextInput, Textarea } from "flowbite-react";
+import { Datepicker, Label, Select, TextInput, Textarea } from "flowbite-react";
 
 const inputType = {
     InputText: "InputText",
@@ -49,6 +49,19 @@ export default function FormInputTextInput({
 
             {formInputType == inputType.InputDatePicker && (
                 <Datepicker id={id} name={name} {...props} />
+            )}
+
+            {formInputType == inputType.InputSelect && (
+                <Select id={id} name={name} {...props}>
+                    <option value="">Pilih Kategori</option>
+                    {props.options.map((option) => {
+                        return (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        );
+                    })}
+                </Select>
             )}
 
             {errorMsg ? (
